@@ -4,7 +4,6 @@ package org.yearup;
 import java.math.BigDecimal;
 
 public class Vehicle {
-    private int id;
     private String vin;
     private String make;
     private String model;
@@ -14,8 +13,7 @@ public class Vehicle {
     private BigDecimal price;
     private boolean sold;
     private String type;
-    public Vehicle(int id, String vin, String make, String model, String color, int year, int miles, BigDecimal price, boolean sold, String type) {
-        this.id = id;
+    public Vehicle(String vin, String make, String model, String color, int year, int miles, BigDecimal price, boolean sold, String type) {
         this.vin = vin;
         this.make = make;
         this.model = model;
@@ -32,7 +30,7 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return "Vehicle [id=" + id + ", vin=" + vin + ", make=" + make + ", model=" + model
+        return "Vehicle [vin=" + vin + ", make=" + make + ", model=" + model
                 + ", year=" + year + ", color=" + color + ", mileage=" + miles
                 + ", price=" + price + ", sold=" + sold + ", type=" + type + "]";
     }
@@ -86,13 +84,6 @@ public class Vehicle {
         return year;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getType() {
         return type;

@@ -72,10 +72,10 @@ public class LeaseContractDAO {
     }
 
     // Delete contract
-    public void deleteContract(int leaseId) throws SQLException {
-        String sql = "DELETE FROM lease_contracts WHERE leaseId = ?";
+    public void deleteContract(String vin) throws SQLException {
+        String sql = "DELETE FROM lease_contracts WHERE vin = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, leaseId);
+            statement.setString(1, vin);
             statement.executeUpdate();
         }
     }

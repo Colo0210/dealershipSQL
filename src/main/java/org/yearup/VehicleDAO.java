@@ -1,6 +1,7 @@
 package org.yearup;
 
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,6 @@ public class VehicleDAO {
         while (rs.next()) {
             Vehicle vehicle = new Vehicle();
             // Assuming the column names match the fields in the Vehicle model
-            vehicle.setId(rs.getInt("id"));
             vehicle.setVin(rs.getString("vin"));
             vehicle.setMake(rs.getString("make"));
             vehicle.setModel(rs.getString("model"));
@@ -33,7 +33,7 @@ public class VehicleDAO {
             vehicle.setMiles(rs.getInt("miles"));
             vehicle.setPrice(rs.getBigDecimal("price"));
             vehicle.setSold(rs.getBoolean("Sold"));
-            vehicle.setSold(rs.getBoolean("type"));
+            vehicle.setType(rs.getString("type"));
             vehicles.add(vehicle);
         }
 
@@ -124,19 +124,24 @@ public class VehicleDAO {
         return vehicles;
     }
 
-    private Vehicle resultSetToVehicle(ResultSet rs) throws SQLException {
-        Vehicle vehicle = new Vehicle();
-        vehicle.setId(rs.getInt("id"));
-        vehicle.setVin(rs.getString("vin"));
-        vehicle.setMake(rs.getString("make"));
-        vehicle.setModel(rs.getString("model"));
-        vehicle.setColor(rs.getString("color"));
-        vehicle.setYear(rs.getInt("year"));
-        vehicle.setMiles(rs.getInt("miles"));
-        vehicle.setPrice(rs.getBigDecimal("price"));
-        vehicle.setSold(rs.getBoolean("Sold"));        // Set 'type' if exists
-        vehicle.setType(rs.getString("type"));
-        return vehicle;
+    private Vehicle resultSetToVehicle(ResultSet rs) {
+        try {
+            String vin = rs.getString("vin");
+            String make = rs.getString("make");
+            String model = rs.getString("model");
+            int year = rs.getInt("year");
+            String color = rs.getString("color");
+            int mileage = rs.getInt("miles");
+            BigDecimal price = rs.getBigDecimal("price");
+            boolean sold = rs.getBoolean("sold");
+            String type = rs.getString("type");
+
+            return new Vehicle(vin, make, model, color, year, mileage, price, sold, type);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 
